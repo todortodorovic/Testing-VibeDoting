@@ -2,6 +2,8 @@
 
 import Link from "next/link"
 import { Web3ConnectButton, useAccount } from "@/lib/web3"
+import { AddressDisplay } from "@/components/address-display"
+import { analyzeAddress, normalizeAddress, NETWORK_PREFIXES } from "@/lib/utils/address-utils"
 
 export default function Home() {
   const { account } = useAccount()
@@ -32,25 +34,70 @@ export default function Home() {
             <div className="space-y-4">
               <div className="bg-card border rounded-lg p-6 space-y-4">
                 <h3 className="text-xl font-semibold">Connected Account</h3>
-                <div className="space-y-2">
-                  <div>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
                     <span className="text-sm text-muted-foreground">Name:</span>
-                    <p className="font-medium">{account.name}</p>
+                    <span className="font-medium">{account.name}</span>
                   </div>
-                  <div>
-                    <span className="text-sm text-muted-foreground">Address:</span>
-                    <p className="font-mono text-sm break-all">{account.address}</p>
-                  </div>
-                  <div>
-                    <span className="text-sm text-muted-foreground">Display Address:</span>
-                    <p className="font-mono text-sm break-all">
-                      {account.displayAddress || account.address}
-                    </p>
-                  </div>
-                  <div>
+                  <div className="flex items-center justify-between">
                     <span className="text-sm text-muted-foreground">Provider:</span>
-                    <p className="font-medium">{account.provider}</p>
+                    <span className="font-medium">{account.provider}</span>
                   </div>
+                </div>
+
+                <div className="border-t pt-4 space-y-3">
+                  <h4 className="text-sm font-semibold">Address Formats</h4>
+
+                  {(() => {
+                    const info = analyzeAddress(account.address)
+                    const polkadotAddr = normalizeAddress(account.address, NETWORK_PREFIXES.POLKADOT)
+                    const kusamaAddr = normalizeAddress(account.address, NETWORK_PREFIXES.KUSAMA)
+                    const genericAddr = normalizeAddress(account.address, NETWORK_PREFIXES.GENERIC)
+
+                    return (
+                      <div className="space-y-3">
+                        <div className="space-y-1">
+                          <span className="text-xs text-muted-foreground">Generic (SS58 prefix 42)</span>
+                          <div className="flex items-center gap-2">
+                            <AddressDisplay address={genericAddr || account.address} format="medium" />
+                          </div>
+                        </div>
+
+                        {polkadotAddr && (
+                          <div className="space-y-1">
+                            <span className="text-xs text-muted-foreground">Polkadot (prefix 0)</span>
+                            <div className="flex items-center gap-2">
+                              <AddressDisplay address={polkadotAddr} format="medium" />
+                            </div>
+                          </div>
+                        )}
+
+                        {kusamaAddr && (
+                          <div className="space-y-1">
+                            <span className="text-xs text-muted-foreground">Kusama (prefix 2)</span>
+                            <div className="flex items-center gap-2">
+                              <AddressDisplay address={kusamaAddr} format="medium" />
+                            </div>
+                          </div>
+                        )}
+
+                        {info.evm && (
+                          <div className="space-y-1">
+                            <span className="text-xs text-muted-foreground">EVM / H160</span>
+                            <div className="flex items-center gap-2">
+                              <AddressDisplay address={info.evm} format="medium" />
+                            </div>
+                          </div>
+                        )}
+
+                        {info.network && (
+                          <div className="pt-2 text-xs text-muted-foreground">
+                            Detected network: <span className="font-medium text-foreground">{info.network}</span>
+                          </div>
+                        )}
+                      </div>
+                    )
+                  })()}
                 </div>
               </div>
               <Link

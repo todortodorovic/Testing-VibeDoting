@@ -1,6 +1,7 @@
 "use client"
 
 import { TransferForm } from "@/lib/polkadot/components/transfer-form"
+import { TransactionTracker } from "@/lib/polkadot/components/transaction-tracker"
 import { Web3ConnectButton } from "@/lib/web3"
 
 export default function TransferPage() {
@@ -11,7 +12,10 @@ export default function TransferPage() {
           <h1 className="text-3xl font-bold">Send Funds</h1>
           <Web3ConnectButton />
         </div>
+
         <TransferForm />
+
+        <TransactionTracker />
       </div>
     </div>
   )
