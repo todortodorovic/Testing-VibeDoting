@@ -3,7 +3,6 @@ import { WalletProviderType } from "@/lib/web3/types/web3"
 
 declare global {
   interface Window {
-    injectedWeb3?: Record<string, unknown>
     walletExtension?: {
       isNovaWallet?: boolean
     }

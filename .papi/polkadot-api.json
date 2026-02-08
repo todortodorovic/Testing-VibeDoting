@@ -1,0 +1,12 @@
+{
+  "version": 0,
+  "descriptorPath": ".papi/descriptors",
+  "entries": {
+    "paseo": {
+      "chain": "paseo_asset_hub",
+      "metadata": ".papi/metadata/paseo.scale",
+      "genesis": "0xd6eec26135305a8ad257a20d003357284c8aa03d0bdb2b357ab0a22371e11ef2",
+      "codeHash": "0x323b7e6ddc9efd93ea433ebf010fbb9ef9d5db4e39247615a1fc9025406f0980"
+    }
+  }
+}

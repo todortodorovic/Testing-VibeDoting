@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { Web3ConnectButton, useAccount } from "@/lib/web3"
 
 export default function Home() {
@@ -28,28 +29,36 @@ export default function Home() {
           </div>
 
           {account ? (
-            <div className="bg-card border rounded-lg p-6 space-y-4">
-              <h3 className="text-xl font-semibold">Connected Account</h3>
-              <div className="space-y-2">
-                <div>
-                  <span className="text-sm text-muted-foreground">Name:</span>
-                  <p className="font-medium">{account.name}</p>
-                </div>
-                <div>
-                  <span className="text-sm text-muted-foreground">Address:</span>
-                  <p className="font-mono text-sm break-all">{account.address}</p>
-                </div>
-                <div>
-                  <span className="text-sm text-muted-foreground">Display Address:</span>
-                  <p className="font-mono text-sm break-all">
-                    {account.displayAddress || account.address}
-                  </p>
-                </div>
-                <div>
-                  <span className="text-sm text-muted-foreground">Provider:</span>
-                  <p className="font-medium">{account.provider}</p>
+            <div className="space-y-4">
+              <div className="bg-card border rounded-lg p-6 space-y-4">
+                <h3 className="text-xl font-semibold">Connected Account</h3>
+                <div className="space-y-2">
+                  <div>
+                    <span className="text-sm text-muted-foreground">Name:</span>
+                    <p className="font-medium">{account.name}</p>
+                  </div>
+                  <div>
+                    <span className="text-sm text-muted-foreground">Address:</span>
+                    <p className="font-mono text-sm break-all">{account.address}</p>
+                  </div>
+                  <div>
+                    <span className="text-sm text-muted-foreground">Display Address:</span>
+                    <p className="font-mono text-sm break-all">
+                      {account.displayAddress || account.address}
+                    </p>
+                  </div>
+                  <div>
+                    <span className="text-sm text-muted-foreground">Provider:</span>
+                    <p className="font-medium">{account.provider}</p>
+                  </div>
                 </div>
               </div>
+              <Link
+                href="/transfer"
+                className="inline-flex items-center justify-center w-full h-11 rounded-md bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors"
+              >
+                Send Funds
+              </Link>
             </div>
           ) : (
             <div className="bg-card border rounded-lg p-12 text-center space-y-4">
