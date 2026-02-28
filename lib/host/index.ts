@@ -1,0 +1,5 @@
+export { detectHostEnvironment, isInHost } from "./detect"
+export type { HostEnvironment } from "./detect"
+export { connectToHost } from "./connection"
+export { getHostAccounts, subscribeHostAccounts } from "./accounts"
+export { getHostAwareClient, disconnectHostClient } from "./provider"

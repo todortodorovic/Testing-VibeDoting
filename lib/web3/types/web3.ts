@@ -7,6 +7,7 @@ export enum WalletProviderType {
   NovaWallet = "nova-wallet",
   WalletConnect = "walletconnect",
   ExternalWallet = "external",
+  HostAPI = "host-api",
 }
 
 export enum WalletProviderStatus {

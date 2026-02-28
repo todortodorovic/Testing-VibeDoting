@@ -6,6 +6,8 @@ import { useAccount } from "@/lib/web3/hooks/use-account"
 import { TransferParams, TransferResult, TransactionStatus as TransferStatus } from "../types/transfer"
 import { connectInjectedExtension } from "polkadot-api/pjs-signer"
 import { MultiAddress } from "@polkadot-api/descriptors"
+import { SpektrExtensionName } from "@novasamatech/product-sdk"
+import { WalletProviderType } from "@/lib/web3/types/web3"
 import { useTransactionStore } from "../store/transaction-store"
 import {
   TransactionInfo,
@@ -59,10 +61,13 @@ export function useTransfer() {
 
         const api = getTypedApi()
 
-        // Connect to wallet
+        // Connect to wallet — map host-api to Spektr extension name
+        const extensionName = account.provider === WalletProviderType.HostAPI
+          ? SpektrExtensionName
+          : account.provider
         let extension
         try {
-          extension = await connectInjectedExtension(account.provider)
+          extension = await connectInjectedExtension(extensionName)
         } catch (e) {
           const error = "Wallet extension rejected the connection or is unavailable"
           txStore.updateCurrentTransaction({

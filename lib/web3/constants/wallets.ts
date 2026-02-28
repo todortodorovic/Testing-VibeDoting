@@ -43,4 +43,8 @@ export const WALLET_INFO: Record<
     name: "External Wallet",
     description: "View-only mode for any address",
   },
+  [WalletProviderType.HostAPI]: {
+    name: "Polkadot App",
+    description: "Account from Polkadot Triangle host",
+  },
 }
